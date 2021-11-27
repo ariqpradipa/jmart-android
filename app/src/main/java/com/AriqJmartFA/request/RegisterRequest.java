@@ -9,7 +9,7 @@ import javax.xml.transform.ErrorListener;
 
 public class RegisterRequest extends StringRequest {
 
-    String URL;
+    String URL = "http://10.0.2.2:<port>/account/register";
     Map<String, String> params;
 
     RegisterRequest(String name, String email, String password, Response.Listener<String> listener, Response.ErrorListener errorListener) {

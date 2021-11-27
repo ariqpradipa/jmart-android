@@ -13,8 +13,8 @@ public class RequestFactory {
 
     public static StringRequest getById(String paentURI, int id, Response.Listener<String> listener, Response.ErrorListener errorListener) {
 
-        String url = String.format(URL_FORMAT_ID, paentURI, id);
-        return new StringRequest(Request.Method.GET, url, listener, errorListener);
+        String URL = String.format(URL_FORMAT_ID, paentURI, id);
+        return new StringRequest(Request.Method.GET, URL, listener, errorListener);
 
     }
 
