@@ -25,12 +25,11 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
 
     Gson gson = new Gson();
-    Account loggedAccount = null;
+    public static Account loggedAccount = null;
 
-    Account getLoggedInAccount() {
+    public static Account getLoggedInAccount() {
 
         return loggedAccount;
-
 
     }
 
