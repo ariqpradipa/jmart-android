@@ -4,15 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import com.android.volley.*;
 import com.android.volley.toolbox.*;
-
 import javax.xml.transform.ErrorListener;
 
 public class RegisterRequest extends StringRequest {
 
-    String URL = "http://10.0.2.2:<port>/account/register";
+    public static String URL = "http://10.0.2.2:8080/account/register";
     Map<String, String> params;
 
-    RegisterRequest(String name, String email, String password, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+    public RegisterRequest(String name, String email, String password, Response.Listener<String> listener, Response.ErrorListener errorListener) {
 
         super(Method.POST, URL, listener, errorListener);
         params = new HashMap<>();
@@ -22,7 +21,7 @@ public class RegisterRequest extends StringRequest {
 
     }
 
-    Map<String, String> getParmas() {
+    public Map<String, String> getParams() {
 
         return params;
 

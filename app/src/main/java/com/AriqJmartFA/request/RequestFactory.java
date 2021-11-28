@@ -8,12 +8,12 @@ import java.util.Map;
 
 public class RequestFactory {
 
-    public static String URL_FORMAT_ID = "http://10.0.2.2:<port>%s/%d";
-    public static String URL_FORMAT_PAGE = "http://10.0.2.2:<port>%s/page";
+    public static String URL_FORMAT_ID = "http://10.0.2.2:8080/%s/%d";
+    public static String URL_FORMAT_PAGE = "http://10.0.2.2:8080/%s/page";
 
-    public static StringRequest getById(String paentURI, int id, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+    public static StringRequest getById(String parentURI, int id, Response.Listener<String> listener, Response.ErrorListener errorListener) {
 
-        String URL = String.format(URL_FORMAT_ID, paentURI, id);
+        String URL = String.format(URL_FORMAT_ID, parentURI, id);
         return new StringRequest(Request.Method.GET, URL, listener, errorListener);
 
     }
@@ -26,8 +26,11 @@ public class RequestFactory {
         params.put("pageSize", String.valueOf(pageSize));
 
         return new StringRequest(Request.Method.GET, url, listener, errorListener) {
+
             public Map<String, String> getParams() {
+
                 return params;
+
             }
         };
     }

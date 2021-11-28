@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.AriqJmartFA.model.Account;
@@ -38,30 +39,52 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText emailLogin = findViewById(R.id.email);
-        EditText passwordLogin = findViewById(R.id.password);
-        Button buttonLogin = findViewById(R.id.button);
+        EditText emailLogin = findViewById(R.id.loginEmail);
+        EditText passwordLogin = findViewById(R.id.loginPassword);
+        Button buttonLogin = findViewById(R.id.loginButton);
+        TextView registerLogin = findViewById(R.id.registerLogin);
 
         buttonLogin.setOnClickListener(v -> {
+
             Response.Listener<String> listener = response -> {
                 try{
                     JSONObject object = new JSONObject(response);
                     if(object != null) {
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        //loggedAccount = gson.fromJSON(object.toString(), Account.class);
+                        loggedAccount = gson.fromJson(object.toString(), Account.class);
                         startActivity(intent);
-                        Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
+
                     }
                 } catch (JSONException e) {
-                    Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+
                 }
             };
 
-            LoginRequest loginRequest = new LoginRequest(emailLogin.getText().toString(), passwordLogin.getText().toString(), listener, (Response.ErrorListener) listener);
+            Response.ErrorListener errorListener = errorResponse -> {
+
+
+            };
+
+
+            LoginRequest loginRequest = new LoginRequest(emailLogin.getText().toString(), passwordLogin.getText().toString(), listener, errorListener);
 
             RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
             requestQueue.add(loginRequest);
 
+        });
+
+        registerLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(registerIntent);
+
+            }
         });
     }
 }
