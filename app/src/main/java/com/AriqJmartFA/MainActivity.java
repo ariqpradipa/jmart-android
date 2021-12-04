@@ -1,13 +1,20 @@
 package com.AriqJmartFA;
 
+import static com.AriqJmartFA.LoginActivity.loggedAccount;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import com.AriqJmartFA.model.Account;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,9 +66,39 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
 
+        if(loggedAccount.store == null) {
+
+            MenuItem item = menu.findItem(R.id.add_Product);
+            if(item != null) {
+
+                item.setVisible(false);
+
+            }
+        }
+
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.add_Product: {
+
+                Intent intent = new Intent(MainActivity.this, CreateProductActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            default: {
+
+                return super.onOptionsItemSelected(item);
+
+            }
+        }
     }
 }
