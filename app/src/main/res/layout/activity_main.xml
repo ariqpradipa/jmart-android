@@ -6,10 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/main_Tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager2"

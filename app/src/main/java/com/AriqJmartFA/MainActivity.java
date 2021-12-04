@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -53,5 +55,13 @@ public class MainActivity extends AppCompatActivity {
                 mainTab.selectTab(mainTab.getTabAt(position));
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+
+        return true;
     }
 }
