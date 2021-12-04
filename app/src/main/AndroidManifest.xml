@@ -13,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jmartandroid"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".LoginActivity"
