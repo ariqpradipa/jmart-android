@@ -7,12 +7,13 @@
     tools:context=".CreateProductActivity">
 
     <Spinner
-        android:id="@+id/spinner5"
+        android:id="@+id/shipmentplan_spinner"
         android:layout_width="169dp"
         android:layout_height="26dp"
         android:layout_marginStart="200dp"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="42dp"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner2" />
@@ -76,7 +77,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        tools:inputType="numberSigned" />
 
     <EditText
         android:id="@+id/editTextTextPersonName6"
@@ -93,7 +95,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5"
+        tools:inputType="number" />
 
     <EditText
         android:id="@+id/editTextTextPersonName7"
@@ -110,7 +113,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6"
+        tools:inputType="number" />
 
     <TextView
         android:id="@+id/textView3"
@@ -146,6 +150,7 @@
         android:layout_marginEnd="96dp"
         android:text="Category"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toStartOf="@+id/spinner2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,6 +175,7 @@
         android:layout_marginTop="28dp"
         android:text="Shipment Plan"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -197,6 +203,7 @@
         android:text="CANCEL"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner5" />
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/shipmentplan_spinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
