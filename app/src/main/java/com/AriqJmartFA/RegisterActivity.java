@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         } catch(JSONException e) {
 
-                            Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
 
                         }
                     }

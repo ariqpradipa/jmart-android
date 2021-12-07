@@ -6,7 +6,7 @@
         <entry key="..\:/College/Jmart-android/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.26614583333333336" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout-w1240dp/activity_login2.xml" value="0.1606425702811245" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout-w936dp/activity_login2.xml" value="0.1875" />
-        <entry key="..\:/College/Jmart-android/app/src/main/res/layout/activity_about_me.xml" value="0.4" />
+        <entry key="..\:/College/Jmart-android/app/src/main/res/layout/activity_about_me.xml" value="0.264" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/activity_create_product.xml" value="0.264" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/activity_login2.xml" value="0.264" />
@@ -14,10 +14,11 @@
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/activity_main2.xml" value="0.25" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/draw_layout.xml" value="0.4" />
-        <entry key="..\:/College/Jmart-android/app/src/main/res/layout/fragment_filter.xml" value="0.25" />
+        <entry key="..\:/College/Jmart-android/app/src/main/res/layout/fragment_filter.xml" value="0.46647230320699706" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/fragment_main.xml" value="0.25" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/fragment_product.xml" value="0.264" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/my_toolbar.xml" value="0.25" />
+        <entry key="..\:/College/Jmart-android/app/src/main/res/layout/register_store.xml" value="0.4" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/layout/toolbar.xml" value="0.25" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/menu/main_menu.xml" value="0.25" />
         <entry key="..\:/College/Jmart-android/app/src/main/res/menu/menu.xml" value="0.25" />

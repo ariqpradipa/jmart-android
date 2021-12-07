@@ -1,6 +1,7 @@
 package com.AriqJmartFA.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -15,9 +16,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
+import com.AriqJmartFA.LoginActivity;
 import com.AriqJmartFA.MainActivity;
 import com.AriqJmartFA.R;
+import com.AriqJmartFA.model.Account;
+import com.AriqJmartFA.model.Product;
+import com.AriqJmartFA.request.ProductListRequest;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +36,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -78,10 +89,9 @@ public class ProductFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        /*
         GetData getData = new GetData();
         getData.execute();
-
-        /*
 
         ListView lv = (ListView)getActivity().findViewById(R.id.product_list);
         ArrayAdapter<String> adapter = new ArrayAdapter(
@@ -96,18 +106,32 @@ public class ProductFragment extends Fragment {
 
 
     String accountId, name, weight, conditionUsed, price, discount, category, shipmentPlan;
-    private static String JSON_URL = "localhost:8080/product/getProductList";
+    private static String JSON_URL = "http://10.0.2.2:8080/product/getProductList";
     ArrayList<HashMap<String,String>> productList;
+    ArrayList<String> productName = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         //Context context = container.getContext();
-
-
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_product, container, false);
+        ListView lv = (ListView) root.findViewById(R.id.product_list);
+
+        /*
+        GetData getData = new GetData();
+        getData.execute();
+
+        lv.setAdapter(new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                productName
+        ));
+        */
+
+
+        return root;
 
     }
 
@@ -186,7 +210,7 @@ public class ProductFragment extends Fragment {
                     products.put("shipmentPlan", shipmentPlan);
 
                     productList.add(products);
-
+                    productName.add("name");
 
                 }
             } catch (JSONException e) {
