@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutMeActivity">
+
+    <TextView
+        android:id="@+id/balance_Detail"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="50dp"
+        android:text="userBalance"
+        android:textAlignment="textEnd"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/topup_Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/balanceText"
+        app:layout_constraintTop_toBottomOf="@+id/email_Detail" />
+
+    <TextView
+        android:id="@+id/accountDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="192dp"
+        android:text="Account Details"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="16dp"
+        android:text="Name"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/emailText"
+        app:layout_constraintEnd_toStartOf="@+id/name_Detail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountDetails" />
+
+    <TextView
+        android:id="@+id/name_Detail"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="16dp"
+        android:text="userName"
+        android:textAlignment="textEnd"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/email_Detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nameText"
+        app:layout_constraintTop_toBottomOf="@+id/accountDetails" />
+
+    <TextView
+        android:id="@+id/email_Detail"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="16dp"
+        android:text="userEmail"
+        android:textAlignment="textEnd"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/balance_Detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/emailText"
+        app:layout_constraintTop_toBottomOf="@+id/name_Detail" />
+
+    <TextView
+        android:id="@+id/emailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="16dp"
+        android:text="Email"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/balanceText"
+        app:layout_constraintEnd_toStartOf="@+id/email_Detail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameText" />
+
+    <TextView
+        android:id="@+id/balanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="50dp"
+        android:text="Balance"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/topup_Balance"
+        app:layout_constraintEnd_toStartOf="@+id/balance_Detail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailText" />
+
+    <EditText
+        android:id="@+id/topup_Balance"
+        android:layout_width="182dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="350dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/topup_Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balanceText" />
+
+    <Button
+        android:id="@+id/topup_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="350dp"
+        android:text="Top Up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/topup_Balance"
+        app:layout_constraintTop_toBottomOf="@+id/balance_Detail" />
+</androidx.constraintlayout.widget.ConstraintLayout>
