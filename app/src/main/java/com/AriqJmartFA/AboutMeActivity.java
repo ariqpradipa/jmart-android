@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.AriqJmartFA.model.Account;
+import com.AriqJmartFA.request.RegisterStoreRequest;
 import com.AriqJmartFA.request.TopUpRequest;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,19 +51,6 @@ public class AboutMeActivity extends AppCompatActivity {
         EditText topupBalance = findViewById(R.id.topup_Balance);
         Button topupButton = findViewById(R.id.topup_Button);
 
-        String storeName = loggedAccount.store.name;
-        String storeAddress = loggedAccount.store.address;
-        String storePhone = loggedAccount.store.phoneNumber;
-
-        TextView storeNameTV = findViewById(R.id.store_name);
-        TextView storeAddressTV = findViewById(R.id.store_address);
-        TextView storePhoneTV = findViewById(R.id.phone_number);
-
-        storeNameTV.setText(storeName);
-        storeAddressTV.setText(storeAddress);
-        storePhoneTV.setText(storePhone);
-
-
         topupButton.setOnClickListener(v -> {
 
             Response.Listener<String> listener = response -> {
@@ -72,14 +61,25 @@ public class AboutMeActivity extends AppCompatActivity {
 
             };
 
-            TopUpRequest topupRequest = new TopUpRequest(Integer.toString(loggedAccount.id), topupBalance.getText().toString(), listener, errorListener);
-            RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
-            requestQueue.add(topupRequest);
+            if(topupBalance.getText().toString().length() == 0 || topupBalance.getText().toString().contains(" ")) {
 
-            loggedAccount.balance += Double.parseDouble(topupBalance.getText().toString());
-            Intent intent = new Intent(AboutMeActivity.this, AboutMeActivity.class);
-            startActivity(intent);
+                Toast.makeText(AboutMeActivity.this, "Input only number!", Toast.LENGTH_SHORT).show();
 
+
+            } else {
+
+                Toast.makeText(AboutMeActivity.this, "Top Up Success!", Toast.LENGTH_SHORT).show();
+
+                TopUpRequest topupRequest = new TopUpRequest(Integer.toString(loggedAccount.id), topupBalance.getText().toString(), listener, errorListener);
+                RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
+                requestQueue.add(topupRequest);
+
+                loggedAccount.balance += Double.parseDouble(topupBalance.getText().toString());
+                Intent intent = new Intent(AboutMeActivity.this, AboutMeActivity.class);
+                startActivity(intent);
+
+
+            }
         });
 
         androidx.constraintlayout.widget.ConstraintLayout storeLayout = findViewById(R.id.store_layout);
@@ -94,9 +94,27 @@ public class AboutMeActivity extends AppCompatActivity {
 
         } else {
 
+            String storeName = loggedAccount.store.name;
+            String storeAddress = loggedAccount.store.address;
+            String storePhone = loggedAccount.store.phoneNumber;
+
+            TextView storeNameTV = findViewById(R.id.store_name);
+            TextView storeAddressTV = findViewById(R.id.store_address);
+            TextView storePhoneTV = findViewById(R.id.phone_number);
+
+            storeNameTV.setText(storeName);
+            storeAddressTV.setText(storeAddress);
+            storePhoneTV.setText(storePhone);
+
             registerStore.setVisibility(View.GONE);
 
         }
+
+        View view = LayoutInflater.from(getApplication()).inflate(R.layout.register_store, null);
+
+        EditText storeName = view.findViewById(R.id.store_name);
+        EditText storeAddress = view.findViewById(R.id.store_address);
+        EditText storePhone = view.findViewById(R.id.phone_number);
 
         registerStore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +127,49 @@ public class AboutMeActivity extends AppCompatActivity {
         });
 
         Button cancelStoreRegister = findViewById(R.id.store_cancel_button);
+        Button createStoreRegister = findViewById(R.id.store_register_button);
+
+        createStoreRegister.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            if(object != null) {
+
+                                Toast.makeText(AboutMeActivity.this, "Store created successfully!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(AboutMeActivity.this, AboutMeActivity.class);
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+
+                            e.printStackTrace();
+                            Toast.makeText(AboutMeActivity.this, "Store creation failed!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                };
+
+                Response.ErrorListener errorListener = errorResponse -> {
+
+                };
+
+                RegisterStoreRequest registerstoreRequest = new RegisterStoreRequest(
+                        Integer.toString(getLoggedInAccount().id),
+                        storeName.getText().toString(),
+                        storeAddress.getText().toString(),
+                        storePhone.getText().toString(),
+                        listener,
+                        errorListener);
+
+                RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
+                requestQueue.add(registerstoreRequest);
+
+            }
+        });
 
         cancelStoreRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +180,8 @@ public class AboutMeActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     @Override
