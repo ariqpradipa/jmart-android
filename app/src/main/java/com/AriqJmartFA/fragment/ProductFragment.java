@@ -1,47 +1,49 @@
 package com.AriqJmartFA.fragment;
 
-import android.content.Context;
-import android.content.Intent;
+import static com.AriqJmartFA.LoginActivity.loggedAccount;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.AriqJmartFA.LoginActivity;
-import com.AriqJmartFA.MainActivity;
+import androidx.fragment.app.Fragment;
+
 import com.AriqJmartFA.R;
-import com.AriqJmartFA.model.Account;
 import com.AriqJmartFA.model.Product;
-import com.AriqJmartFA.request.ProductListRequest;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.net.*;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -105,119 +107,107 @@ public class ProductFragment extends Fragment {
     }
 
 
-    String accountId, name, weight, conditionUsed, price, discount, category, shipmentPlan;
-    private static String JSON_URL = "http://10.0.2.2:8080/product/getProductList";
-    ArrayList<HashMap<String,String>> productList;
+    //String accountId, name, weight, conditionUsed, price, discount, category, shipmentPlan;
+    public static String JSON_URL = "http://10.0.2.2:8080/product/getProductList?page=2";
     ArrayList<String> productName = new ArrayList<String>();
+    ArrayList<Product> productList = new ArrayList<Product>();
+
+
+    ListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         //Context context = container.getContext();
         // Inflate the layout for this fragment
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_product, container, false);
-        ListView lv = (ListView) root.findViewById(R.id.product_list);
+        lv = (ListView) root.findViewById(R.id.product_list);
 
-        /*
-        GetData getData = new GetData();
-        getData.execute();
-
-        lv.setAdapter(new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                productName
-        ));
-        */
-
+        loadProductList();
 
         return root;
 
     }
 
-    public class GetData extends AsyncTask<String, String, String> {
+    List<HashMap<String, String>> mapList = new ArrayList<>();
+    private void loadProductList() {
 
-        @Override
-        protected String doInBackground(String... strings) {
-            String current = "";
+        //creating a string request to send request to the url
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //hiding the progressbar after completion
 
-            try {
-                URL url;
-                HttpURLConnection urlConnection = null;
 
-                try {
-                    url = new URL(JSON_URL);
-                    urlConnection = (HttpURLConnection) url.openConnection();
+                        try {
+                            //getting the whole json object from the response
 
-                    InputStream in = urlConnection.getInputStream();
-                    InputStreamReader isr = new InputStreamReader(in);
+                            //we have the array named tutorial inside the object
+                            //so here we are getting that json array
+                            JSONArray productArray = new JSONArray(response);
 
-                    int data = isr.read();
-                    while(data != -1) {
-                        current += (char) data;
-                        data = isr.read();
+                            //now looping through all the elements of the json array
+                            for (int i = 0; i < productArray.length(); i++) {
+                                //getting the json object of the particular index inside the array
+                                JSONObject productObject = productArray.getJSONObject(i);
+
+                                //creating a tutorial object and giving them the values from json object
+                                Product product = new Product(
+                                        productObject.getInt("accountId"),
+                                        productObject.getString("category"),
+                                        productObject.getBoolean("conditionUsed"),
+                                        productObject.getDouble("discount"),
+                                        productObject.getString("name"),
+                                        productObject.getDouble("price"),
+                                        productObject.getInt("shipmentPlan"),
+                                        productObject.getInt("weight"));
+                                HashMap<String, String> map = new HashMap<String, String>();
+
+                                map.put("name", product.name);
+                                map.put("store", Integer.toString(product.accountId));
+                                mapList.add(map);
+
+                                //adding the tutorial to tutoriallist
+                                productList.add(product);
+                            }
+
+                            for(int i = 0; i< productList.size(); i++ ) {
+
+                                productName.add(productList.get(i).toString());
+
+                            }
+                            //creating custom adapter object
+                            lv.setAdapter(new SimpleAdapter(
+                                    getActivity(),
+                                    mapList,
+                                    R.layout.row_layout,
+                                    new String[] {"name", "store"},
+                                    new int[] {R.id.productname_listview, R.id.storename_listview}));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+                },
+                new Response.ErrorListener() {
 
-                    return current;
-
-                } catch (IOException e) {
-
-                    e.printStackTrace();
-
-                } finally {
-
-                    if(urlConnection != null) {
-                        urlConnection.disconnect();
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //displaying the error in toast if occur
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
-            } catch (Exception e) {
+                });
 
-                e.printStackTrace();
+        //creating a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-            }
-
-            return current;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-
-            try{
-                JSONArray jsonArray = new JSONArray(s);
-
-                for(int i = 0; i < jsonArray.length(); i++) {
-
-                    JSONObject object = jsonArray.getJSONObject(i);
-
-                    accountId = object.getString("accountId");
-                    name = object.getString("name");
-                    weight = object.getString("weight");
-                    conditionUsed = object.getString("conditionUsed");
-                    price = object.getString("price");
-                    discount = object.getString("discount");
-                    category = object.getString("category");
-                    shipmentPlan = object.getString("shipmentPlan");
-
-                    HashMap<String, String> products = new HashMap<String, String>();
-
-                    products.put("accountId", accountId);
-                    products.put("name", name);
-                    products.put("weight", weight);
-                    products.put("conditionUsed", conditionUsed);
-                    products.put("price", price);
-                    products.put("discount", discount);
-                    products.put("category", category);
-                    products.put("shipmentPlan", shipmentPlan);
-
-                    productList.add(products);
-                    productName.add("name");
-
-                }
-            } catch (JSONException e) {
-
-                e.printStackTrace();
-
-            }
-        }
+        //adding the string request to request queue
+        requestQueue.add(stringRequest);
     }
+
+
+
 }

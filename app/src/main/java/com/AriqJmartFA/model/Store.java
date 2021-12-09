@@ -10,4 +10,11 @@ public class Store {
     public String name;
     public String phoneNumber;
 
+    public Store(String name, String address, String phoneNumber, String i) {
+
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.balance = i;
+    }
 }

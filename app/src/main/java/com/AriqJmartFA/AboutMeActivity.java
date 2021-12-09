@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.AriqJmartFA.model.Account;
+import com.AriqJmartFA.model.Store;
 import com.AriqJmartFA.request.RegisterStoreRequest;
 import com.AriqJmartFA.request.TopUpRequest;
 import com.android.volley.RequestQueue;
@@ -133,9 +134,11 @@ public class AboutMeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
                 Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        /*
                         try {
                             JSONObject object = new JSONObject(response);
                             if(object != null) {
@@ -150,6 +153,7 @@ public class AboutMeActivity extends AppCompatActivity {
                             Toast.makeText(AboutMeActivity.this, "Store creation failed!", Toast.LENGTH_SHORT).show();
 
                         }
+                         */
                     }
                 };
 
@@ -157,6 +161,7 @@ public class AboutMeActivity extends AppCompatActivity {
 
                 };
 
+                /*
                 RegisterStoreRequest registerstoreRequest = new RegisterStoreRequest(
                         Integer.toString(getLoggedInAccount().id),
                         storeName.getText().toString(),
@@ -167,6 +172,20 @@ public class AboutMeActivity extends AppCompatActivity {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
                 requestQueue.add(registerstoreRequest);
+
+                 */
+                loggedAccount.store.name = storeName.getText().toString();
+                loggedAccount.store.address = storeAddress.getText().toString();
+                loggedAccount.store.phoneNumber = storePhone.getText().toString();
+
+
+
+                Store store = new Store(storeName.getText().toString(), storeAddress.getText().toString(), storePhone.getText().toString(), "0");
+                loggedAccount.store = store;
+
+                Toast.makeText(AboutMeActivity.this, "Store created successfully!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AboutMeActivity.this, AboutMeActivity.class);
+                startActivity(intent);
 
             }
         });
