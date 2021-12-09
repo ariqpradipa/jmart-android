@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -108,10 +110,15 @@ public class ProductFragment extends Fragment {
 
 
     //String accountId, name, weight, conditionUsed, price, discount, category, shipmentPlan;
-    public static String JSON_URL = "http://10.0.2.2:8080/product/getProductList?page=2";
+    public static String PARENT_JSON_URL = "http://10.0.2.2:8080/product/getProductList";
+    public static String JSON_URL = "http://10.0.2.2:8080/product/getProductList";
+    public static String maxPageURL = "http://10.0.2.2:8080/product/getMaxPage";
+
     ArrayList<String> productName = new ArrayList<String>();
     ArrayList<Product> productList = new ArrayList<Product>();
 
+    Integer pageNum = 1;
+    Integer pageMax;
 
     ListView lv;
 
@@ -126,6 +133,70 @@ public class ProductFragment extends Fragment {
         lv = (ListView) root.findViewById(R.id.product_list);
 
         loadProductList();
+        Button nextButton = root.findViewById(R.id.next_button);
+        Button prevButton = root.findViewById(R.id.prev_button);
+        TextView pageNumber = root.findViewById(R.id.current_page);
+
+        pageNumber.setText(pageNum.toString());
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, maxPageURL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        pageMax = Integer.parseInt(response);
+
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //displaying the error in toast if occur
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        //creating a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+        //adding the string request to request queue
+        requestQueue.add(stringRequest);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(pageNum < pageMax) {
+
+                    pageNum++;
+
+                }
+                pageNumber.setText(pageNum.toString());
+                JSON_URL = PARENT_JSON_URL;
+                JSON_URL = JSON_URL + "?page=" + pageNum;
+                mapList.clear();
+                lv.setAdapter(null);
+                loadProductList();
+
+            }
+        });
+
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(pageNum > 1) {
+                    pageNum--;
+                }
+                pageNumber.setText(pageNum.toString());
+                JSON_URL = PARENT_JSON_URL;
+                JSON_URL = JSON_URL + "?page=" + pageNum;
+                mapList.clear();
+                lv.setAdapter(null);
+                loadProductList();
+            }
+        });
 
         return root;
 
@@ -140,7 +211,6 @@ public class ProductFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         //hiding the progressbar after completion
-
 
                         try {
                             //getting the whole json object from the response
@@ -163,11 +233,12 @@ public class ProductFragment extends Fragment {
                                         productObject.getString("name"),
                                         productObject.getDouble("price"),
                                         productObject.getInt("shipmentPlan"),
-                                        productObject.getInt("weight"));
+                                        productObject.getInt("weight"),
+                                        productObject.getString("storeName"));
                                 HashMap<String, String> map = new HashMap<String, String>();
 
                                 map.put("name", product.name);
-                                map.put("store", Integer.toString(product.accountId));
+                                map.put("store", product.storeName);
                                 mapList.add(map);
 
                                 //adding the tutorial to tutoriallist

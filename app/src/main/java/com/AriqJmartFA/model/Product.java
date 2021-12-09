@@ -10,8 +10,9 @@ public class Product extends Serializable {
     public double price;
     public int shipmentPlan;
     public int weight;
+    public String storeName;
 
-    public Product(int accountId, String category, boolean conditionUsed, double discount, String name, double price, int shipmentPlan, int weigth) {
+    public Product(int accountId, String category, boolean conditionUsed, double discount, String name, double price, int shipmentPlan, int weight, String storeName) {
 
         this.accountId = accountId;
         this.category = category;
@@ -20,7 +21,8 @@ public class Product extends Serializable {
         this.discount = discount;
         this.price = price;
         this.shipmentPlan = shipmentPlan;
-        this.weight = weigth;
+        this.weight = weight;
+        this.storeName = storeName;
     }
 
     public String toString() {

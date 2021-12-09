@@ -7,10 +7,10 @@
 
     <TextView
         android:id="@+id/productname_listview"
-        android:layout_width="379dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="297dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="productname"
         android:textSize="20sp"
@@ -23,10 +23,11 @@
         android:id="@+id/storename_listview"
         android:layout_width="81dp"
         android:layout_height="21dp"
-        android:layout_marginStart="306dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
         android:text="store"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productname_listview" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/productname_listview"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
