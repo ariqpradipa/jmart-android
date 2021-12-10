@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -133,8 +134,11 @@ public class ProductFragment extends Fragment {
         lv = (ListView) root.findViewById(R.id.product_list);
 
         loadProductList();
+
         Button nextButton = root.findViewById(R.id.next_button);
         Button prevButton = root.findViewById(R.id.prev_button);
+        Button gopageButton = root.findViewById(R.id.gopage_button);
+        EditText pageNumberEdit = root.findViewById(R.id.page_number);
         TextView pageNumber = root.findViewById(R.id.current_page);
 
         pageNumber.setText(pageNum.toString());
@@ -195,6 +199,28 @@ public class ProductFragment extends Fragment {
                 mapList.clear();
                 lv.setAdapter(null);
                 loadProductList();
+            }
+        });
+
+        gopageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(pageNumberEdit.getText().toString().length() > 0 && !pageNumberEdit.getText().toString().contains(" ")) {
+                    if(Integer.parseInt(pageNumberEdit.getText().toString()) < pageMax) {
+
+                        pageNum = Integer.parseInt(pageNumberEdit.getText().toString());
+
+                    }
+                }
+
+                pageNumber.setText(pageNum.toString());
+                JSON_URL = PARENT_JSON_URL;
+                JSON_URL = JSON_URL + "?page=" + pageNum;
+                mapList.clear();
+                lv.setAdapter(null);
+                loadProductList();
+
             }
         });
 
@@ -278,7 +304,4 @@ public class ProductFragment extends Fragment {
         //adding the string request to request queue
         requestQueue.add(stringRequest);
     }
-
-
-
 }
