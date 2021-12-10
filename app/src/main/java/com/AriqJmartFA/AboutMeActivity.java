@@ -3,6 +3,8 @@ package com.AriqJmartFA;
 import static com.AriqJmartFA.LoginActivity.getLoggedInAccount;
 import static com.AriqJmartFA.LoginActivity.loggedAccount;
 
+import static java.security.AccessController.getContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,24 +13,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.AriqJmartFA.model.Account;
+import com.AriqJmartFA.model.Product;
 import com.AriqJmartFA.model.Store;
 import com.AriqJmartFA.request.RegisterStoreRequest;
 import com.AriqJmartFA.request.TopUpRequest;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AboutMeActivity extends AppCompatActivity {
 
     Gson gson = new Gson();
+    public static String PARENT_URL = "http://10.0.2.2:8080/account/";
+    public static String USER_URL = "http://10.0.2.2:8080/account/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,11 +124,9 @@ public class AboutMeActivity extends AppCompatActivity {
 
         }
 
-        View view = LayoutInflater.from(getApplication()).inflate(R.layout.register_store, null);
-
-        EditText storeName = view.findViewById(R.id.store_name);
-        EditText storeAddress = view.findViewById(R.id.store_address);
-        EditText storePhone = view.findViewById(R.id.phone_number);
+        EditText storeName = findViewById(R.id.store_name_register);
+        EditText storeAddress = findViewById(R.id.store_address_register);
+        EditText storePhone = findViewById(R.id.store_phone_register);
 
         registerStore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +141,8 @@ public class AboutMeActivity extends AppCompatActivity {
         Button cancelStoreRegister = findViewById(R.id.store_cancel_button);
         Button createStoreRegister = findViewById(R.id.store_register_button);
 
+//        USER_URL = PARENT_URL;
+//        USER_URL = USER_URL + Integer.toString(loggedAccount.id) + "/registerStore";
         createStoreRegister.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -138,30 +151,31 @@ public class AboutMeActivity extends AppCompatActivity {
                 Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        /*
+
                         try {
+
                             JSONObject object = new JSONObject(response);
                             if(object != null) {
 
                                 Toast.makeText(AboutMeActivity.this, "Store created successfully!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(AboutMeActivity.this, AboutMeActivity.class);
                                 startActivity(intent);
+
                             }
                         } catch (JSONException e) {
 
                             e.printStackTrace();
-                            Toast.makeText(AboutMeActivity.this, "Store creation failed!", Toast.LENGTH_SHORT).show();
 
                         }
-                         */
                     }
                 };
 
                 Response.ErrorListener errorListener = errorResponse -> {
 
+                    Toast.makeText(AboutMeActivity.this, errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
                 };
 
-                /*
                 RegisterStoreRequest registerstoreRequest = new RegisterStoreRequest(
                         Integer.toString(getLoggedInAccount().id),
                         storeName.getText().toString(),
@@ -170,22 +184,73 @@ public class AboutMeActivity extends AppCompatActivity {
                         listener,
                         errorListener);
 
-                RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
-                requestQueue.add(registerstoreRequest);
-
-                 */
-                loggedAccount.store.name = storeName.getText().toString();
-                loggedAccount.store.address = storeAddress.getText().toString();
-                loggedAccount.store.phoneNumber = storePhone.getText().toString();
-
-
-
                 Store store = new Store(storeName.getText().toString(), storeAddress.getText().toString(), storePhone.getText().toString(), "0");
                 loggedAccount.store = store;
 
-                Toast.makeText(AboutMeActivity.this, "Store created successfully!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AboutMeActivity.this, AboutMeActivity.class);
-                startActivity(intent);
+                RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
+                requestQueue.add(registerstoreRequest);
+
+                /*
+                //creating a string request to send request to the url
+                HashMap<String, String> params = new HashMap<String, String>();
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, USER_URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                //hiding the progressbar after completion
+
+                                /*
+                                try {
+
+                                    JSONObject storeObject = new JSONObject(response);
+
+                                    Store store = new Store(
+                                            storeObject.getString("name"),
+                                            storeObject.getString("address"),
+                                            storeObject.getString("phoneNumber"),
+                                            storeObject.getString("balance"));
+
+
+
+                                    Toast.makeText(AboutMeActivity.this, "Store Creation Success!", Toast.LENGTH_SHORT).show();
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                //displaying the error in toast if occur
+                                Toast.makeText(AboutMeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+
+                        params.put("name", storeName.getText().toString());
+                        params.put("address", storeAddress.getText().toString());
+                        params.put("phoneNumber", storePhone.getText().toString());
+
+                        return params;
+
+                    }
+                };
+
+                //creating a request queue
+                RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
+
+                //adding the string request to request queue
+                requestQueue.add(stringRequest);
+
+
+         */
+
+
 
             }
         });

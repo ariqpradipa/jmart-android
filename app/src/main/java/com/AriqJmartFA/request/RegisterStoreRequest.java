@@ -17,7 +17,6 @@ public class RegisterStoreRequest extends StringRequest {
         super(Method.POST, "http://10.0.2.2:8080/account/" + id + "/registerStore", listener, errorListener);
 
         params = new HashMap<>();
-        params.put("id", id);
         params.put("name", name);
         params.put("address", address);
         params.put("phoneNumber", phoneNumber);
