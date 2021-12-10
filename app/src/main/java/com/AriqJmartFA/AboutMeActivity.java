@@ -141,8 +141,6 @@ public class AboutMeActivity extends AppCompatActivity {
         Button cancelStoreRegister = findViewById(R.id.store_cancel_button);
         Button createStoreRegister = findViewById(R.id.store_register_button);
 
-//        USER_URL = PARENT_URL;
-//        USER_URL = USER_URL + Integer.toString(loggedAccount.id) + "/registerStore";
         createStoreRegister.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -190,68 +188,6 @@ public class AboutMeActivity extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
                 requestQueue.add(registerstoreRequest);
 
-                /*
-                //creating a string request to send request to the url
-                HashMap<String, String> params = new HashMap<String, String>();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, USER_URL,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                //hiding the progressbar after completion
-
-                                /*
-                                try {
-
-                                    JSONObject storeObject = new JSONObject(response);
-
-                                    Store store = new Store(
-                                            storeObject.getString("name"),
-                                            storeObject.getString("address"),
-                                            storeObject.getString("phoneNumber"),
-                                            storeObject.getString("balance"));
-
-
-
-                                    Toast.makeText(AboutMeActivity.this, "Store Creation Success!", Toast.LENGTH_SHORT).show();
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-
-                            }
-                        },
-                        new Response.ErrorListener() {
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                //displaying the error in toast if occur
-                                Toast.makeText(AboutMeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-
-                        params.put("name", storeName.getText().toString());
-                        params.put("address", storeAddress.getText().toString());
-                        params.put("phoneNumber", storePhone.getText().toString());
-
-                        return params;
-
-                    }
-                };
-
-                //creating a request queue
-                RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
-
-                //adding the string request to request queue
-                requestQueue.add(stringRequest);
-
-
-         */
-
-
-
             }
         });
 
@@ -264,8 +200,6 @@ public class AboutMeActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     @Override
