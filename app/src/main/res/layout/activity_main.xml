@@ -20,10 +20,12 @@
     <ListView
         android:id="@+id/product_search_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="711dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="0dp"
         android:visibility="invisible"
         tools:listitem="@android:layout/simple_list_item_1" />
 

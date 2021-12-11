@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -20,6 +21,7 @@ import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.AriqJmartFA.fragment.ProductFragment;
 import com.AriqJmartFA.model.Product;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,10 +45,14 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 pager2;
     FragmentAdapter adapter;
 
-    ArrayList<String> list;
     SimpleAdapter adapterProductView;
 
     ListView productSearch;
+
+    public static String JSON_URL = "http://10.0.2.2:8080/product/getAllProduct";
+
+    ArrayList<String> productName = new ArrayList<String>();
+    ArrayList<Product> productList = new ArrayList<Product>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,11 +101,27 @@ public class MainActivity extends AppCompatActivity {
                 mainTab.selectTab(mainTab.getTabAt(position));
             }
         });
-    }
-    public static String JSON_URL = "http://10.0.2.2:8080/product/getAllProduct";
 
-    ArrayList<String> productName = new ArrayList<String>();
-    ArrayList<Product> productList = new ArrayList<Product>();
+        productSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Object selectedItem = parent.getItemAtPosition(position);
+                for(int i = 0; i < productList.size(); i++) {
+
+                    if(selectedItem.toString().contains(productList.get(i).name) && selectedItem.toString().contains(productList.get(i).storeName)) {
+
+                        //Toast.makeText(getContext(), "Selected: " + productList.get(i).name + " " + productList.get(i).storeName, Toast.LENGTH_SHORT).show();
+                        ProductFragment.selectedProduct = productList.get(i);
+                        Intent prdetailsIntent = new Intent(MainActivity.this, ProductDetailsActivity.class);
+                        startActivity(prdetailsIntent);
+
+                    }
+                }
+            }
+        });
+    }
 
     List<HashMap<String, String>> mapList = new ArrayList<>();
     private void loadProductList() {

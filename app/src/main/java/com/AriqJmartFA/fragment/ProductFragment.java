@@ -1,5 +1,8 @@
 package com.AriqJmartFA.fragment;
 
+import static com.AriqJmartFA.fragment.FilterFragment.applyFilterStatus;
+import static com.AriqJmartFA.fragment.FilterFragment.filterPageMax;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +25,7 @@ import com.AriqJmartFA.MainActivity;
 import com.AriqJmartFA.ProductDetailsActivity;
 import com.AriqJmartFA.R;
 import com.AriqJmartFA.model.Product;
+import com.AriqJmartFA.request.ProductFilterListRequest;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -99,19 +104,19 @@ public class ProductFragment extends Fragment {
 
 
     //String accountId, name, weight, conditionUsed, price, discount, category, shipmentPlan;
-    public static String PARENT_JSON_URL = "http://10.0.2.2:8080/product/getProductList";
-    public static String JSON_URL = "http://10.0.2.2:8080/product/getProductList";
+    public static String PARENT_JSON_URL = "http://10.0.2.2:8080/product";
+    public static String JSON_URL = "http://10.0.2.2:8080/product";
     public static String maxPageURL = "http://10.0.2.2:8080/product/getMaxPage";
 
-    ArrayList<String> productName = new ArrayList<String>();
-    ArrayList<Product> productList = new ArrayList<Product>();
+    static ArrayList<String> productName = new ArrayList<String>();
+    static ArrayList<Product> productList = new ArrayList<Product>();
 
     public static Product selectedProduct = null;
 
-    Integer pageNum = 1;
+    public static Integer pageNum = 1;
     Integer pageMax;
 
-    ListView lv;
+    public static ListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,8 +144,17 @@ public class ProductFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
 
-                        pageMax = Integer.parseInt(response);
-                        maxPossiblePage.setText(pageMax.toString());
+                        if(!applyFilterStatus) {
+
+                            pageMax = Integer.parseInt(response);
+                            maxPossiblePage.setText(pageMax.toString());
+
+                        } else {
+
+                            pageMax = filterPageMax;
+
+                        }
+
 
                     }
                 },
@@ -168,13 +182,21 @@ public class ProductFragment extends Fragment {
                     pageNum++;
 
                 }
+
                 pageNumber.setText(pageNum.toString());
                 JSON_URL = PARENT_JSON_URL;
-                JSON_URL = JSON_URL + "?page=" + pageNum;
                 mapList.clear();
                 lv.setAdapter(null);
-                loadProductList();
+                if(!applyFilterStatus) {
 
+                    JSON_URL = JSON_URL + "/getProductList?page=" + pageNum;
+                    loadProductList();
+
+                } else {
+
+                    loadFilteredList();
+
+                }
             }
         });
 
@@ -187,10 +209,19 @@ public class ProductFragment extends Fragment {
                 }
                 pageNumber.setText(pageNum.toString());
                 JSON_URL = PARENT_JSON_URL;
-                JSON_URL = JSON_URL + "?page=" + pageNum;
                 mapList.clear();
                 lv.setAdapter(null);
-                loadProductList();
+
+                if(!applyFilterStatus) {
+
+                    JSON_URL = JSON_URL + "/getProductList?page=" + pageNum;
+                    loadProductList();
+
+                } else {
+
+                    loadProductList();
+
+                }
             }
         });
 
@@ -208,11 +239,18 @@ public class ProductFragment extends Fragment {
 
                 pageNumber.setText(pageNum.toString());
                 JSON_URL = PARENT_JSON_URL;
-                JSON_URL = JSON_URL + "?page=" + pageNum;
                 mapList.clear();
                 lv.setAdapter(null);
-                loadProductList();
+                if(!applyFilterStatus) {
 
+                    JSON_URL = JSON_URL + "/getProductList?page=" + pageNum;
+                    loadProductList();
+
+                } else {
+
+                    loadFilteredList();
+
+                }
             }
         });
 
@@ -240,7 +278,7 @@ public class ProductFragment extends Fragment {
 
     }
 
-    List<HashMap<String, String>> mapList = new ArrayList<>();
+    static List<HashMap<String, String>> mapList = new ArrayList<>();
     private void loadProductList() {
 
         //creating a string request to send request to the url
@@ -315,5 +353,113 @@ public class ProductFragment extends Fragment {
 
         //adding the string request to request queue
         requestQueue.add(stringRequest);
+    }
+
+    private static String conditionUsed;
+    public void loadFilteredList() {
+
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+
+                    //getting the whole json object from the response
+
+                    //we have the array named tutorial inside the object
+                    //so here we are getting that json array
+                    JSONArray productArray = new JSONArray(response);
+
+                    //now looping through all the elements of the json array
+                    for (int i = 0; i < productArray.length(); i++) {
+                        //getting the json object of the particular index inside the array
+                        JSONObject productObject = productArray.getJSONObject(i);
+
+                        //creating a tutorial object and giving them the values from json object
+                        Product product = new Product(
+                                productObject.getInt("accountId"),
+                                productObject.getString("category"),
+                                productObject.getBoolean("conditionUsed"),
+                                productObject.getDouble("discount"),
+                                productObject.getString("name"),
+                                productObject.getDouble("price"),
+                                productObject.getInt("shipmentPlan"),
+                                productObject.getInt("weight"),
+                                productObject.getString("storeName"));
+                        HashMap<String, String> map = new HashMap<String, String>();
+
+                        map.put("name", product.name);
+                        map.put("store", product.storeName);
+                        mapList.add(map);
+
+                        //adding the tutorial to tutoriallist
+                        productList.add(product);
+                    }
+
+                    for(int i = 0; i< productList.size(); i++ ) {
+
+                        productName.add(productList.get(i).toString());
+
+                    }
+                    //creating custom adapter object
+                    lv.setAdapter(new SimpleAdapter(
+                            getContext(),
+                            mapList,
+                            R.layout.row_layout,
+                            new String[] {"name", "store"},
+                            new int[] {R.id.productname_listview, R.id.storename_listview}));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        };
+
+        FilterFragment.radioConditionUsed.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup radioCondition, int checkedId) {
+
+                int selectedID = radioCondition.getCheckedRadioButtonId();
+
+                if(selectedID == R.id.radio_new) {
+
+                    conditionUsed = "false";
+
+                } else if(selectedID == R.id.radio_used) {
+
+                    conditionUsed = "true";
+
+                }
+            }
+        });
+
+        ProductFilterListRequest productfilterlistRequest = new ProductFilterListRequest(
+                "1",
+                "9",
+                conditionUsed,
+                FilterFragment.productnameFilter.getText().toString(),
+                FilterFragment.lowestPrice.getText().toString(),
+                FilterFragment.highetPrice.getText().toString(),
+                FilterFragment.categorySpinner.getSelectedItem().toString(),
+                listener,
+                errorListener);
+
+        //creating a request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+        //adding the string request to request queue
+        requestQueue.add(productfilterlistRequest);
+
     }
 }

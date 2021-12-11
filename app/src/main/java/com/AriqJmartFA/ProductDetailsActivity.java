@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.AriqJmartFA.fragment.ProductFragment;
+
 public class ProductDetailsActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
@@ -72,6 +74,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         // super.onBackPressed();
         Intent intent = new Intent(ProductDetailsActivity.this, MainActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
         startActivity(intent);
 
     }
