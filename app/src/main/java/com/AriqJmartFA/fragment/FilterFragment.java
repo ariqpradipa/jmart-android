@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.AriqJmartFA.R;
-import com.AriqJmartFA.model.ProductCategory;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,21 +63,58 @@ public class FilterFragment extends Fragment {
         }
     }
 
+    public static boolean applyFilterStatus = false;
+    public static Integer filterPageMax;
+
+    public static EditText productnameFilter;
+    public static EditText lowestPrice;
+    public static EditText highetPrice;
+    public static RadioGroup radioConditionUsed;
+    public static Spinner categorySpinner;
+    public static ArrayAdapter<CharSequence> spinnerAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_filter, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        Spinner categorySpinner = root.findViewById(R.id.category_filter);
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),R.array.category_list,android.R.layout.simple_spinner_item);
+        productnameFilter = root.findViewById(R.id.productname_filter);
+        lowestPrice = root.findViewById(R.id.lowest_filter);
+        highetPrice = root.findViewById(R.id.highest_filter);
+        radioConditionUsed = root.findViewById(R.id.radiogroup_condition);
+
+        categorySpinner = root.findViewById(R.id.category_filter);
+        spinnerAdapter = ArrayAdapter.createFromResource(getContext(),R.array.category_list,android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         categorySpinner.setAdapter(spinnerAdapter);
 
+        Button applyFilter = root.findViewById(R.id.apply_filter);
+        Button clearFilter = root.findViewById(R.id.clear_filter);
 
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        applyFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                applyFilterStatus = true;
+                ProductFragment pf = new ProductFragment();
+                pf.loadFilteredList();
+
+            }
+        });
+
+        clearFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                applyFilterStatus = false;
+
+            }
+        });
+
         return root;
+
     }
 }
