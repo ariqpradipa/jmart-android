@@ -47,7 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         } catch(JSONException e) {
 
-                            Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                            Toast.makeText(RegisterActivity.this, "something when wrong", Toast.LENGTH_LONG).show();
 
                         }
                     }
@@ -55,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 Response.ErrorListener errorListener = errorResponse -> {
 
+                    Toast.makeText(RegisterActivity.this, "something when wrong", Toast.LENGTH_LONG).show();
 
                 };
 

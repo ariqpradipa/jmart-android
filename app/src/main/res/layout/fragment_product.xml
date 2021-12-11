@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.ProductFragment">
+    tools:context=".fragment.ProductFragment"
+    tools:layout_editor_absoluteX="-13dp"
+    tools:layout_editor_absoluteY="0dp">
 
     <EditText
         android:id="@+id/page_number"
@@ -85,16 +87,44 @@
         app:layout_constraintTop_toBottomOf="@+id/page_number" />
 
     <TextView
+        android:id="@+id/pageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginEnd="2dp"
+        android:text="Page"
+        app:layout_constraintBottom_toTopOf="@+id/product_list"
+        app:layout_constraintEnd_toStartOf="@+id/current_page"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/current_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="364dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:text="page"
+        android:text="curr"
+        app:layout_constraintBottom_toTopOf="@+id/product_list"
+        app:layout_constraintEnd_toStartOf="@+id/of_page"
+        app:layout_constraintStart_toEndOf="@+id/pageText" />
+
+    <TextView
+        android:id="@+id/max_page_possible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="max"
         app:layout_constraintBottom_toTopOf="@+id/product_list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gopage_button" />
+        app:layout_constraintStart_toEndOf="@+id/of_page" />
+
+    <TextView
+        android:id="@+id/of_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:text="of"
+        app:layout_constraintBottom_toTopOf="@+id/product_list"
+        app:layout_constraintEnd_toStartOf="@+id/max_page_possible"
+        app:layout_constraintStart_toEndOf="@+id/current_page" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

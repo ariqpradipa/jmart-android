@@ -40,8 +40,6 @@ import java.util.Map;
 public class AboutMeActivity extends AppCompatActivity {
 
     Gson gson = new Gson();
-    public static String PARENT_URL = "http://10.0.2.2:8080/account/";
-    public static String USER_URL = "http://10.0.2.2:8080/account/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +89,6 @@ public class AboutMeActivity extends AppCompatActivity {
                 loggedAccount.balance += Double.parseDouble(topupBalance.getText().toString());
                 Intent intent = new Intent(AboutMeActivity.this, AboutMeActivity.class);
                 startActivity(intent);
-
 
             }
         });

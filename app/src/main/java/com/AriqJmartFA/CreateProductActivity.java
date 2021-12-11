@@ -102,13 +102,15 @@ public class CreateProductActivity extends AppCompatActivity implements AdapterV
                             }
                         } catch(JSONException e) {
 
-                            Toast.makeText(CreateProductActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
 
                         }
                     }
                 };
 
                 Response.ErrorListener errorListener = errorResponse -> {
+
+                    Toast.makeText(CreateProductActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
 
                 };
 

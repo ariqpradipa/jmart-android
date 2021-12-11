@@ -1,14 +1,12 @@
 package com.AriqJmartFA.fragment;
 
-import static com.AriqJmartFA.LoginActivity.loggedAccount;
-
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -18,6 +16,9 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.AriqJmartFA.LoginActivity;
+import com.AriqJmartFA.MainActivity;
+import com.AriqJmartFA.ProductDetailsActivity;
 import com.AriqJmartFA.R;
 import com.AriqJmartFA.model.Product;
 import com.android.volley.Request;
@@ -26,25 +27,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.net.*;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -118,6 +106,8 @@ public class ProductFragment extends Fragment {
     ArrayList<String> productName = new ArrayList<String>();
     ArrayList<Product> productList = new ArrayList<Product>();
 
+    public static Product selectedProduct = null;
+
     Integer pageNum = 1;
     Integer pageMax;
 
@@ -140,6 +130,7 @@ public class ProductFragment extends Fragment {
         Button gopageButton = root.findViewById(R.id.gopage_button);
         EditText pageNumberEdit = root.findViewById(R.id.page_number);
         TextView pageNumber = root.findViewById(R.id.current_page);
+        TextView maxPossiblePage = root.findViewById(R.id.max_page_possible);
 
         pageNumber.setText(pageNum.toString());
 
@@ -149,6 +140,7 @@ public class ProductFragment extends Fragment {
                     public void onResponse(String response) {
 
                         pageMax = Integer.parseInt(response);
+                        maxPossiblePage.setText(pageMax.toString());
 
                     }
                 },
@@ -207,7 +199,7 @@ public class ProductFragment extends Fragment {
             public void onClick(View v) {
 
                 if(pageNumberEdit.getText().toString().length() > 0 && !pageNumberEdit.getText().toString().contains(" ")) {
-                    if(Integer.parseInt(pageNumberEdit.getText().toString()) < pageMax) {
+                    if(Integer.parseInt(pageNumberEdit.getText().toString()) <= pageMax && Integer.parseInt(pageNumberEdit.getText().toString()) != 0) {
 
                         pageNum = Integer.parseInt(pageNumberEdit.getText().toString());
 
@@ -221,6 +213,26 @@ public class ProductFragment extends Fragment {
                 lv.setAdapter(null);
                 loadProductList();
 
+            }
+        });
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Object selectedItem = parent.getItemAtPosition(position);
+                for(int i = 0; i < productList.size(); i++) {
+
+                    if(selectedItem.toString().contains(productList.get(i).name) && selectedItem.toString().contains(productList.get(i).storeName)) {
+
+                        //Toast.makeText(getContext(), "Selected: " + productList.get(i).name + " " + productList.get(i).storeName, Toast.LENGTH_SHORT).show();
+                        selectedProduct = productList.get(i);
+                        Intent prdetailsIntent = new Intent(getActivity(), ProductDetailsActivity.class);
+                        startActivity(prdetailsIntent);
+
+                    }
+                }
             }
         });
 

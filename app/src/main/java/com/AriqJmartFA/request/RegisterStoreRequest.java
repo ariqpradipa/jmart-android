@@ -20,6 +20,7 @@ public class RegisterStoreRequest extends StringRequest {
         params.put("name", name);
         params.put("address", address);
         params.put("phoneNumber", phoneNumber);
+
     }
 
     public Map<String, String> getParams() {

@@ -58,16 +58,17 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
 
-                    Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                    Toast.makeText(LoginActivity.this, "username or password is wrong!", Toast.LENGTH_LONG).show();
 
                 }
             };
 
             Response.ErrorListener errorListener = errorResponse -> {
 
+                Toast.makeText(LoginActivity.this, "username or password is wrong!", Toast.LENGTH_LONG).show();
 
             };
-
 
             LoginRequest loginRequest = new LoginRequest(emailLogin.getText().toString(), passwordLogin.getText().toString(), listener, errorListener);
 
