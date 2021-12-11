@@ -37,6 +37,8 @@ public class CreateProductActivity extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_product);
 
+        setTitle("Create Product");
+
         EditText productName = findViewById(R.id.product_name);
         EditText productWeight = findViewById(R.id.product_weight);
         EditText productPrice = findViewById(R.id.product_price);

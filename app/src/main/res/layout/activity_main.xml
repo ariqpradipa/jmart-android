@@ -17,6 +17,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_Tab" />
 
+    <ListView
+        android:id="@+id/product_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:visibility="invisible"
+        tools:listitem="@android:layout/simple_list_item_1" />
 
 
 </RelativeLayout>
