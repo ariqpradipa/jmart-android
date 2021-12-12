@@ -11,18 +11,30 @@
         android:orderInCategory="100"
         android:title="@string/search"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/add_Product"
         android:icon="@drawable/ic_baseline_add_box_24"
         android:orderInCategory="200"
         android:title="@string/add_product"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/about_me"
         android:icon="@drawable/ic_baseline_person_24"
         android:orderInCategory="300"
         android:title="@string/about_me"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/buyer_payment_history"
+        android:orderInCategory="400"
+        android:title="Transaction" />
+
+    <item
+        android:id="@+id/store_order"
+        android:orderInCategory="500"
+        android:title="Order" />
 
 </menu>

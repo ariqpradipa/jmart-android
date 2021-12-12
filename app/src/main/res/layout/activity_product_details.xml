@@ -227,4 +227,92 @@
         app:layout_constraintEnd_toStartOf="@+id/productdetails_store"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <Button
+        android:id="@+id/buy_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginBottom="140dp"
+        android:text="Buy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalprice_buy" />
+
+    <ImageButton
+        android:id="@+id/plusquant_button"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="21dp"
+        android:backgroundTint="#EDEDED"
+        android:src="@drawable/ic_baseline_exposure_plus_1_24"
+        app:layout_constraintBottom_toTopOf="@+id/totalprice_buy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/productcount_buy"
+        app:layout_constraintTop_toBottomOf="@+id/productdetails_store" />
+
+    <EditText
+        android:id="@+id/productcount_buy"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView18"
+        app:layout_constraintEnd_toStartOf="@+id/plusquant_button"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/minquant_button"
+        app:layout_constraintTop_toBottomOf="@+id/productdetails_store" />
+
+    <ImageButton
+        android:id="@+id/minquant_button"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#EDEDED"
+        android:src="@drawable/ic_baseline_exposure_neg_1_24"
+        app:layout_constraintBottom_toTopOf="@+id/textView18"
+        app:layout_constraintEnd_toStartOf="@+id/productcount_buy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="18dp"
+        android:text="Rp."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/buy_button"
+        app:layout_constraintEnd_toStartOf="@+id/totalprice_buy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minquant_button" />
+
+    <TextView
+        android:id="@+id/totalprice_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="134dp"
+        android:text="9999999999"
+        android:textAlignment="textEnd"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/buy_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/productcount_buy" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

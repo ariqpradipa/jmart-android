@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     public static String JSON_URL = "http://10.0.2.2:8080/product/getAllProduct";
 
     ArrayList<String> productName = new ArrayList<String>();
-    ArrayList<Product> productList = new ArrayList<Product>();
+    static ArrayList<Product> productList = new ArrayList<Product>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,10 +210,12 @@ public class MainActivity extends AppCompatActivity {
 
         if(loggedAccount.store == null) {
 
-            MenuItem item = menu.findItem(R.id.add_Product);
-            if(item != null) {
+            MenuItem itemProduct = menu.findItem(R.id.add_Product);
+            MenuItem itemOrder = menu.findItem(R.id.store_order);
+            if(itemProduct != null || itemOrder != null) {
 
-                item.setVisible(false);
+                itemProduct.setVisible(false);
+                itemOrder.setVisible(false);
 
             }
         }
@@ -284,6 +286,20 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             }
+            case R.id.buyer_payment_history: {
+
+                Intent intent = new Intent(MainActivity.this, UserPaymentActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.store_order: {
+                /*
+                Intent intent = new Intent(MainActivity.this, UserPaymentActivity.class);
+                startActivity(intent);
+                return true;
+
+                 */
+            }
             default: {
 
                 return super.onOptionsItemSelected(item);
@@ -292,7 +308,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 
     @Override
     public void onBackPressed() {
