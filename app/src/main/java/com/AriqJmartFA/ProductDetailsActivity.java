@@ -74,7 +74,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         // super.onBackPressed();
         Intent intent = new Intent(ProductDetailsActivity.this, MainActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
+        ProductFragment.mapList.clear();
+        //ProductFragment.lv.setAdapter(null);
         startActivity(intent);
 
     }

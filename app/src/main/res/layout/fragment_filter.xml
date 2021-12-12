@@ -168,13 +168,13 @@
         app:layout_constraintTop_toBottomOf="@+id/highest_filter">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/new_filter"
             android:layout_width="71dp"
             android:layout_height="wrap_content"
             android:text="New" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/used_filter"
             android:layout_width="77dp"
             android:layout_height="wrap_content"
             android:text="Used" />

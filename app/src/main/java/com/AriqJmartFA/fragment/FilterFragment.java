@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.AriqJmartFA.R;
 
@@ -73,6 +74,8 @@ public class FilterFragment extends Fragment {
     public static Spinner categorySpinner;
     public static ArrayAdapter<CharSequence> spinnerAdapter;
 
+    public static String conditionUsed;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,6 +87,25 @@ public class FilterFragment extends Fragment {
         lowestPrice = root.findViewById(R.id.lowest_filter);
         highetPrice = root.findViewById(R.id.highest_filter);
         radioConditionUsed = root.findViewById(R.id.radiogroup_condition);
+
+        radioConditionUsed.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup radioConditionUsed, int checkedId) {
+
+                int selectedID = radioConditionUsed.getCheckedRadioButtonId();
+
+                if(selectedID == R.id.new_filter) {
+
+                    conditionUsed = "false";
+
+                } else if(selectedID == R.id.used_filter) {
+
+                    conditionUsed = "true";
+
+                }
+            }
+        });
 
         categorySpinner = root.findViewById(R.id.category_filter);
         spinnerAdapter = ArrayAdapter.createFromResource(getContext(),R.array.category_list,android.R.layout.simple_spinner_item);
@@ -99,8 +121,7 @@ public class FilterFragment extends Fragment {
             public void onClick(View v) {
 
                 applyFilterStatus = true;
-                ProductFragment pf = new ProductFragment();
-                pf.loadFilteredList();
+                Toast.makeText(getContext(), "Filter Applied", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -110,6 +131,7 @@ public class FilterFragment extends Fragment {
             public void onClick(View v) {
 
                 applyFilterStatus = false;
+                Toast.makeText(getContext(), "Filter Cleared", Toast.LENGTH_SHORT).show();
 
             }
         });
