@@ -9,11 +9,12 @@ public class Payment extends Invoice {
     public int productCount;
     public Shipment shipment;
 
-    public Payment(int buyerId, int productId, int productCount, Shipment shipment) {
+    public Payment(int buyerId, int productId, int productCount, Shipment shipment, ArrayList<Record> history) {
 
         super(buyerId, productId);
         this.productCount = productCount;
         this.shipment = shipment;
+        this.history = history;
 
     }
 

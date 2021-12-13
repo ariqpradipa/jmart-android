@@ -2,6 +2,7 @@ package com.AriqJmartFA.model;
 
 public class Product extends Serializable {
 
+    public int id;
     public int accountId;
     public String category;
     public boolean conditionUsed;
@@ -12,8 +13,9 @@ public class Product extends Serializable {
     public int weight;
     public String storeName;
 
-    public Product(int accountId, String category, boolean conditionUsed, double discount, String name, double price, int shipmentPlan, int weight, String storeName) {
+    public Product(int id, int accountId, String category, boolean conditionUsed, double discount, String name, double price, int shipmentPlan, int weight, String storeName) {
 
+        this.id = id;
         this.accountId = accountId;
         this.category = category;
         this.conditionUsed = conditionUsed;

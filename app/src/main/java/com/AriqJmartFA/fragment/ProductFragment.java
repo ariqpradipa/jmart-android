@@ -332,6 +332,7 @@ public class ProductFragment extends Fragment {
 
                                 //creating a tutorial object and giving them the values from json object
                                 Product product = new Product(
+                                        productObject.getInt("id"),
                                         productObject.getInt("accountId"),
                                         productObject.getString("category"),
                                         productObject.getBoolean("conditionUsed"),

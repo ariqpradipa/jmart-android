@@ -1,11 +1,16 @@
 package com.AriqJmartFA;
 
 import static com.AriqJmartFA.LoginActivity.getLoggedInAccount;
+import static com.AriqJmartFA.MainActivity.getAllProduct;
+import static com.AriqJmartFA.MainActivity.productList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -37,6 +42,12 @@ public class UserPaymentActivity extends AppCompatActivity {
     ListView transactionView;
     SimpleAdapter adapterTransactionView;
 
+    public static Payment selectedPayment;
+    List<Product> allProduct = getAllProduct();
+
+    ArrayList<String> paymentName = new ArrayList<String>();
+    ArrayList<Payment> paymentList = new ArrayList<Payment>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +61,21 @@ public class UserPaymentActivity extends AppCompatActivity {
 
         loadTransactionList();
 
-    }
+        transactionView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-    ArrayList<String> paymentName = new ArrayList<String>();
-    ArrayList<Payment> paymentList = new ArrayList<Payment>();
+                selectedPayment = paymentList.get(position);
+
+                Intent pydetailsIntent = new Intent(UserPaymentActivity.this, PaymentDetailsActivity.class);
+                startActivity(pydetailsIntent);
+
+
+                //Toast.makeText(UserPaymentActivity.this, Integer.toString(selectedPayment.productId), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
 
     String transactionProductName;
     List<HashMap<String, String>> mapList = new ArrayList<>();
@@ -88,13 +110,14 @@ public class UserPaymentActivity extends AppCompatActivity {
                                                 paymentObject.getJSONObject("shipment").getInt("cost"),
                                                 (byte) paymentObject.getJSONObject("shipment").getInt("plan"),
                                                 "none"
-                                        )
+                                        ),
+                                        ArrayList<Record> data
                                 );
 
-                                for(int j = 0; j < MainActivity.productList.size(); j++) {
-                                    if(MainActivity.productList.get(i).id == paymentObject.getInt("productId")) {
+                                for(int j = 0; j < allProduct.size(); j++) {
+                                    if(allProduct.get(j).id == paymentObject.getInt("productId")) {
 
-                                        transactionProductName = MainActivity.productList.get(i).name;
+                                        transactionProductName = allProduct.get(j).name;
                                         break;
 
                                     }
@@ -106,7 +129,6 @@ public class UserPaymentActivity extends AppCompatActivity {
                                 map.put("transactionStatus", paymentObject.getJSONArray("history").getJSONObject(paymentObject.getJSONArray("history").length() - 1).getString("status"));
                                 mapList.add(map);
 
-                                //adding the tutorial to tutoriallist
                                 paymentList.add(payment);
                             }
 

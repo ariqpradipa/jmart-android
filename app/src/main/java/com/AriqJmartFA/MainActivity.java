@@ -52,7 +52,13 @@ public class MainActivity extends AppCompatActivity {
     public static String JSON_URL = "http://10.0.2.2:8080/product/getAllProduct";
 
     ArrayList<String> productName = new ArrayList<String>();
-    static ArrayList<Product> productList = new ArrayList<Product>();
+    public static ArrayList<Product> productList = new ArrayList<Product>();
+
+    public static List<Product> getAllProduct() {
+
+        return productList;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 //creating a tutorial object and giving them the values from json object
                                 Product product = new Product(
+                                        productObject.getInt("id"),
                                         productObject.getInt("accountId"),
                                         productObject.getString("category"),
                                         productObject.getBoolean("conditionUsed"),

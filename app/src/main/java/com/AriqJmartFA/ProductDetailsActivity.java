@@ -42,6 +42,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productDetailsDisc.setText(Double.toString(selectedProduct.discount));
         productDetailsWeight.setText(Integer.toString(selectedProduct.weight));
         productDetailsCategory.setText(selectedProduct.category);
+
         if(!selectedProduct.conditionUsed) {
 
             productDetailsCondition.setText("New");
@@ -82,6 +83,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         EditText productQuantity = findViewById(R.id.productcount_buy);
         TextView totalpriceValue = findViewById(R.id.totalprice_buy);
         Button buyButton = findViewById(R.id.buy_button);
+
+        productQuantity.setEnabled(false);
 
         quantityBuy = 0;
         totalpriceBuy = 0.0;
