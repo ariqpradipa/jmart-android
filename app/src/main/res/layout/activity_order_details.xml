@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserPaymentActivity">
+    tools:context=".OrderDetailsActivity">
 
     <ListView
         android:id="@+id/orders_view"
         android:layout_width="412dp"
         android:layout_height="602dp"
+        android:layout_marginTop="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orders_title"
         tools:listitem="@android:layout/simple_list_item_1" />
@@ -23,11 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="281dp"
-        android:layout_marginBottom="15dp"
-        android:text="Transaction"
+        android:layout_marginEnd="294dp"
+        android:text="Orders(s)"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/orders_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

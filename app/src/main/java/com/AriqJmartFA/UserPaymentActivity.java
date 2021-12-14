@@ -2,7 +2,6 @@ package com.AriqJmartFA;
 
 import static com.AriqJmartFA.LoginActivity.getLoggedInAccount;
 import static com.AriqJmartFA.MainActivity.getAllProduct;
-import static com.AriqJmartFA.MainActivity.productList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -24,7 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +50,7 @@ public class UserPaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_payment);
 
-        transactionView = findViewById(R.id.transaction_view);
+        transactionView = findViewById(R.id.orders_view);
         transactionView.setAdapter(adapterTransactionView);
 
         JSON_URL = PARENT_JSON_URL;
@@ -100,8 +97,16 @@ public class UserPaymentActivity extends AppCompatActivity {
                                 //getting the json object of the particular index inside the array
                                 JSONObject paymentObject = paymentArray.getJSONObject(i);
 
+                                Payment.Record record = new Payment.Record(
+                                        paymentObject.getJSONArray("history").getJSONObject(paymentObject.getJSONArray("history").length() - 1).getString("date"),
+                                        paymentObject.getJSONArray("history").getJSONObject(paymentObject.getJSONArray("history").length() - 1).getString("message"),
+                                        paymentObject.getJSONArray("history").getJSONObject(paymentObject.getJSONArray("history").length() - 1).getString("status")
+
+                                );
                                 //creating a tutorial object and giving them the values from json object
                                 Payment payment = new Payment(
+                                        paymentObject.getInt("id"),
+                                        paymentObject.getString("date"),
                                         paymentObject.getInt("buyerId"),
                                         paymentObject.getInt("productId"),
                                         paymentObject.getInt("productCount"),
@@ -111,7 +116,7 @@ public class UserPaymentActivity extends AppCompatActivity {
                                                 (byte) paymentObject.getJSONObject("shipment").getInt("plan"),
                                                 "none"
                                         ),
-                                        ArrayList<Record> data
+                                        record
                                 );
 
                                 for(int j = 0; j < allProduct.size(); j++) {
