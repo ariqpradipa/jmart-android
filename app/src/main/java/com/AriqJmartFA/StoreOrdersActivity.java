@@ -31,50 +31,51 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UserPaymentActivity extends AppCompatActivity {
-
+public class StoreOrdersActivity extends AppCompatActivity {
 
     private static final String PARENT_JSON_URL = "http://10.0.2.2:8080/payment/";
     private static String JSON_URL = PARENT_JSON_URL;
-    ListView transactionView;
-    SimpleAdapter adapterTransactionView;
 
-    public static Payment selectedPayment;
+    ListView ordersView;
+    SimpleAdapter adapterOrdersView;
+
+    public static Payment selectedOrders;
     List<Product> allProduct = getAllProduct();
 
-    ArrayList<String> paymentName = new ArrayList<String>();
-    ArrayList<Payment> paymentList = new ArrayList<Payment>();
+    ArrayList<String> ordersName = new ArrayList<String>();
+    ArrayList<Payment> ordersList = new ArrayList<Payment>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_payment);
+        setContentView(R.layout.activity_store_orders);
 
-        transactionView = findViewById(R.id.transaction_view);
-        transactionView.setAdapter(adapterTransactionView);
+        ordersView = findViewById(R.id.orders_view);
+        ordersView.setAdapter(adapterOrdersView);
 
         JSON_URL = PARENT_JSON_URL;
-        JSON_URL = JSON_URL + getLoggedInAccount().id + "/paymentHistory";
+        JSON_URL = JSON_URL + getLoggedInAccount().id + "/ordersHistory";
 
         loadTransactionList();
 
-        transactionView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ordersView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                selectedPayment = paymentList.get(position);
+                selectedOrders = ordersList.get(position);
 
-                Intent pydetailsIntent = new Intent(UserPaymentActivity.this, PaymentDetailsActivity.class);
-                startActivity(pydetailsIntent);
+                Intent ordetailsIntent = new Intent(StoreOrdersActivity.this, OrdersDetailsActivity.class);
+                startActivity(ordetailsIntent);
 
 
                 //Toast.makeText(UserPaymentActivity.this, Integer.toString(selectedPayment.productId), Toast.LENGTH_SHORT).show();
 
             }
         });
+
     }
 
-    String transactionProductName;
+    String transactionOrdersName;
     List<HashMap<String, String>> mapList = new ArrayList<>();
     private void loadTransactionList() {
 
@@ -119,37 +120,40 @@ public class UserPaymentActivity extends AppCompatActivity {
                                         record
                                 );
 
+                                // take payment from registered user id
                                 for(int j = 0; j < allProduct.size(); j++) {
                                     if(allProduct.get(j).id == paymentObject.getInt("productId")) {
+                                        if(allProduct.get(j).accountId == getLoggedInAccount().id) {
 
-                                        transactionProductName = allProduct.get(j).name;
-                                        break;
+                                            transactionOrdersName = allProduct.get(j).name;
+                                            break;
 
+                                        }
                                     }
                                 }
 
                                 HashMap<String, String> map = new HashMap<String, String>();
 
-                                map.put("productName", transactionProductName);
+                                map.put("productName", transactionOrdersName);
                                 map.put("transactionStatus", paymentObject.getJSONArray("history").getJSONObject(paymentObject.getJSONArray("history").length() - 1).getString("status"));
                                 mapList.add(map);
 
-                                paymentList.add(payment);
+                                ordersList.add(payment);
                             }
 
-                            for(int i = 0; i< paymentList.size(); i++ ) {
+                            for(int i = 0; i< ordersList.size(); i++ ) {
 
-                                paymentName.add(paymentList.get(i).toString());
+                                ordersName.add(ordersList.get(i).toString());
 
                             }
                             //creating custom adapter object
-                            adapterTransactionView = new SimpleAdapter(
-                                    UserPaymentActivity.this,
+                            adapterOrdersView = new SimpleAdapter(
+                                    StoreOrdersActivity.this,
                                     mapList,
                                     R.layout.transaction_layout,
                                     new String[] {"productName", "transactionStatus"},
                                     new int[] {R.id.productname_transaction, R.id.transactionstatus_transaction});
-                            transactionView.setAdapter(adapterTransactionView);
+                            ordersView.setAdapter(adapterOrdersView);
 
                         } catch (JSONException e) {
 
@@ -163,12 +167,12 @@ public class UserPaymentActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //displaying the error in toast if occur
-                        Toast.makeText(UserPaymentActivity.this, "get error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StoreOrdersActivity.this, "get error", Toast.LENGTH_SHORT).show();
                     }
                 });
 
         //creating a request queue
-        RequestQueue requestQueue = Volley.newRequestQueue(UserPaymentActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(StoreOrdersActivity.this);
 
         //adding the string request to request queue
         requestQueue.add(stringRequest);
@@ -178,7 +182,7 @@ public class UserPaymentActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // super.onBackPressed();
-        Intent intent = new Intent(UserPaymentActivity.this, MainActivity.class);
+        Intent intent = new Intent(StoreOrdersActivity.this, MainActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 

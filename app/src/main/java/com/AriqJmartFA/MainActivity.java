@@ -300,12 +300,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.store_order: {
-                /*
-                Intent intent = new Intent(MainActivity.this, UserPaymentActivity.class);
+
+                Intent intent = new Intent(MainActivity.this, StoreOrdersActivity.class);
                 startActivity(intent);
                 return true;
 
-                 */
             }
             default: {
 

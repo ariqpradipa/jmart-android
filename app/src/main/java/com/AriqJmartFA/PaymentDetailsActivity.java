@@ -28,6 +28,7 @@ public class PaymentDetailsActivity extends AppCompatActivity {
 
         setTitle("Transaction Details");
         TextView paymentBuyDate = findViewById(R.id.payment_buy_date);
+        TextView paymentStoreName = findViewById(R.id.payment_store_name);
         TextView paymentProductName = findViewById(R.id.payment_product_name);
         TextView paymentProductCount= findViewById(R.id.payment_product_count);
         TextView paymentShipmentAddress = findViewById(R.id.payment_ship_address);
@@ -48,6 +49,7 @@ public class PaymentDetailsActivity extends AppCompatActivity {
         for(int i = 0; i < productList.size(); i++) {
             if(productList.get(i).id == selectedPayment.productId) {
 
+                paymentStoreName.setText(productList.get(i).storeName);
                 paymentProductName.setText(productList.get(i).name);
                 break;
 

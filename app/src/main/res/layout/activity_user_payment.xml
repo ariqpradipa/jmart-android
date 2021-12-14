@@ -7,7 +7,7 @@
     tools:context=".UserPaymentActivity">
 
     <ListView
-        android:id="@+id/orders_view"
+        android:id="@+id/transaction_view"
         android:layout_width="412dp"
         android:layout_height="602dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginBottom="15dp"
         android:text="Transaction"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/orders_view"
+        app:layout_constraintBottom_toTopOf="@+id/transaction_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

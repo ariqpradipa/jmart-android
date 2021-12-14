@@ -14,7 +14,10 @@
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".OrderDetailsActivity"
+            android:name=".OrdersDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOrdersActivity"
             android:exported="false" />
         <activity
             android:name=".PaymentDetailsActivity"

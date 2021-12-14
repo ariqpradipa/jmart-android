@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentDetailsActivity">
+    tools:context=".OrdersDetailsActivity">
 
     <TextView
         android:id="@+id/textView21"
@@ -14,7 +14,7 @@
         android:layout_marginTop="24dp"
         android:text="Product Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_store_name" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_store_name" />
 
     <TextView
         android:id="@+id/textView22"
@@ -24,7 +24,7 @@
         android:layout_marginTop="24dp"
         android:text="Product Count"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_product_name" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_product_name" />
 
     <TextView
         android:id="@+id/textView23"
@@ -34,7 +34,7 @@
         android:layout_marginTop="24dp"
         android:text="Shipment Address"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_product_count" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_product_count" />
 
     <TextView
         android:id="@+id/textView24"
@@ -44,7 +44,7 @@
         android:layout_marginTop="24dp"
         android:text="Shipment cost"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_ship_address" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_ship_address" />
 
     <TextView
         android:id="@+id/textView25"
@@ -54,7 +54,7 @@
         android:layout_marginTop="24dp"
         android:text="Shipment Plan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_ship_cost" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_ship_cost" />
 
     <TextView
         android:id="@+id/textView26"
@@ -74,7 +74,7 @@
         android:layout_marginTop="24dp"
         android:text="Status"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_ship_plan" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_ship_plan" />
 
     <TextView
         android:id="@+id/textView28"
@@ -84,7 +84,7 @@
         android:layout_marginTop="24dp"
         android:text="Status Message"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_status" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_status" />
 
     <TextView
         android:id="@+id/textView29"
@@ -94,10 +94,10 @@
         android:layout_marginTop="24dp"
         android:text="Last Status Update"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_status_msg" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_status_msg" />
 
     <TextView
-        android:id="@+id/payment_buy_date"
+        android:id="@+id/orders_buy_date"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="115dp"
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/payment_product_name"
+        android:id="@+id/orders_product_name"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="61dp"
@@ -120,10 +120,10 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView21"
-        app:layout_constraintTop_toBottomOf="@+id/payment_store_name" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_store_name" />
 
     <TextView
-        android:id="@+id/payment_product_count"
+        android:id="@+id/orders_product_count"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="81dp"
@@ -133,10 +133,10 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/payment_product_name" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_product_name" />
 
     <TextView
-        android:id="@+id/payment_ship_address"
+        android:id="@+id/orders_ship_address"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
@@ -146,10 +146,10 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView23"
-        app:layout_constraintTop_toBottomOf="@+id/payment_product_count" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_product_count" />
 
     <TextView
-        android:id="@+id/payment_ship_cost"
+        android:id="@+id/orders_ship_cost"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="81dp"
@@ -159,10 +159,10 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView24"
-        app:layout_constraintTop_toBottomOf="@+id/payment_ship_address" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_ship_address" />
 
     <TextView
-        android:id="@+id/payment_ship_plan"
+        android:id="@+id/orders_ship_plan"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="71dp"
@@ -172,10 +172,10 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView25"
-        app:layout_constraintTop_toBottomOf="@+id/payment_ship_cost" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_ship_cost" />
 
     <TextView
-        android:id="@+id/payment_status"
+        android:id="@+id/orders_status"
         android:layout_width="165dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="86dp"
@@ -185,10 +185,10 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView27"
-        app:layout_constraintTop_toBottomOf="@+id/payment_ship_plan" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_ship_plan" />
 
     <TextView
-        android:id="@+id/payment_status_msg"
+        android:id="@+id/orders_status_msg"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -198,10 +198,10 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView28"
-        app:layout_constraintTop_toBottomOf="@+id/payment_status" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_status" />
 
     <TextView
-        android:id="@+id/payemnt_status_lastdate"
+        android:id="@+id/orders_status_lastdate"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -211,53 +211,7 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView29"
-        app:layout_constraintTop_toBottomOf="@+id/payment_status_msg" />
-
-    <Button
-        android:id="@+id/payment_accept_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="60dp"
-        android:text="accept"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-    <Button
-        android:id="@+id/payment_cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="90dp"
-        android:text="cancel"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payemnt_status_lastdate" />
-
-    <Button
-        android:id="@+id/payment_seller_conf"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:enabled="false"
-        android:text="Waiting Seller to submit"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-    <Button
-        android:id="@+id/payment_otw"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:enabled="false"
-        android:text="On the way to your location"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_status_msg" />
 
     <TextView
         android:id="@+id/textView17"
@@ -267,10 +221,10 @@
         android:layout_marginTop="24dp"
         android:text="Store Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/payment_buy_date" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_buy_date" />
 
     <TextView
-        android:id="@+id/payment_store_name"
+        android:id="@+id/orders_store_name"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="97dp"
@@ -280,6 +234,52 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/payment_buy_date" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_buy_date" />
+
+    <Button
+        android:id="@+id/orders_submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="60dp"
+        android:text="submit"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    <Button
+        android:id="@+id/orders_reject_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="90dp"
+        android:text="reject"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orders_status_lastdate" />
+
+    <Button
+        android:id="@+id/wait_buyer_acc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:enabled="false"
+        android:text="waiting for buyer to accept"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    <Button
+        android:id="@+id/cancelled_by_buyer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:enabled="false"
+        android:text="cancelled by buyer"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
