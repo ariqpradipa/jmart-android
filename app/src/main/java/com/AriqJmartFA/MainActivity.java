@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 pager2.setVisibility(View.INVISIBLE);
                 productSearch.setVisibility(View.VISIBLE);
                 adapterProductView.getFilter().filter(newText);
-                return false;
+                return true;
             }
         });
 

@@ -28,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -164,6 +166,7 @@ public class UserPaymentActivity extends AppCompatActivity {
                                 paymentName.add(paymentList.get(i).toString());
 
                             }
+                            
                             //creating custom adapter object
                             adapterTransactionView = new SimpleAdapter(
                                     UserPaymentActivity.this,
