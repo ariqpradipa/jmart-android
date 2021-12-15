@@ -19,6 +19,7 @@
         android:ems="10"
         android:hint="page"
         android:inputType="number"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/product_list"
         app:layout_constraintEnd_toStartOf="@+id/gopage_button"
         app:layout_constraintStart_toEndOf="@+id/next_button"
@@ -35,8 +36,9 @@
         android:layout_marginBottom="23dp"
         android:layout_x="51dp"
         android:layout_y="38dp"
-        android:backgroundTint="#c9c9c9"
+        android:backgroundTint="#0E8CE3"
         android:text="PREV"
+        android:textColor="#FAFAFA"
         app:layout_constraintBottom_toTopOf="@+id/product_list"
         app:layout_constraintEnd_toStartOf="@+id/next_button"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,12 +55,13 @@
         android:layout_marginBottom="23dp"
         android:layout_x="51dp"
         android:layout_y="38dp"
-        android:backgroundTint="#c9c9c9"
+        android:backgroundTint="#0E8CE3"
         android:text="GO"
         app:layout_constraintBottom_toTopOf="@+id/product_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/page_number"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/next_button"
@@ -74,10 +77,12 @@
         android:layout_y="38dp"
         android:backgroundTint="#c9c9c9"
         android:text="NEXT"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/product_list"
         app:layout_constraintEnd_toStartOf="@+id/page_number"
         app:layout_constraintStart_toEndOf="@+id/prev_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:backgroundTint="#0E8CE3" />
 
     <ListView
         android:id="@+id/product_list"

@@ -25,6 +25,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="294dp"
         android:text="Orders(s)"
+        android:textColor="#0E8CE3"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/orders_view"
         app:layout_constraintEnd_toEndOf="parent"

@@ -9,11 +9,13 @@
         android:id="@+id/store_cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#0E8CE3"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/store_register_button"
-        app:layout_constraintTop_toBottomOf="@+id/store_phone_register" />
+        app:layout_constraintTop_toBottomOf="@+id/store_phone_register"
+        tools:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/registerstore_text"
@@ -23,6 +25,7 @@
         android:layout_marginEnd="113dp"
         android:layout_marginBottom="24dp"
         android:text="Register Store"
+        android:textColor="#0E8CE3"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/store_name_register"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +39,9 @@
         android:layout_marginStart="43dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="25dp"
+        android:backgroundTint="#0E8CE3"
         android:text="Register"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/store_cancel_button"
         app:layout_constraintStart_toStartOf="parent"

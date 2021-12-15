@@ -55,7 +55,9 @@
         app:layout_constraintBottom_toTopOf="@+id/registerLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/loginPassword"
+        tools:backgroundTint="#0E8CE3"
+        tools:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/registerLogin"
