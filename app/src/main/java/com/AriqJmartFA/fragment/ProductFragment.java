@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.AriqJmartFA.LoginActivity;
 import com.AriqJmartFA.ProductDetailsActivity;
 import com.AriqJmartFA.R;
+import com.AriqJmartFA.SplashScreen;
 import com.AriqJmartFA.model.Product;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -205,7 +207,8 @@ public class ProductFragment extends Fragment {
 
                 }
 
-                loadProductList();
+                loadProductThread();
+
             }
         });
 
@@ -239,7 +242,8 @@ public class ProductFragment extends Fragment {
 
                 }
 
-                loadProductList();
+                loadProductThread();
+
             }
         });
 
@@ -278,7 +282,8 @@ public class ProductFragment extends Fragment {
 
                 }
 
-                loadProductList();
+                loadProductThread();
+
             }
         });
 
@@ -302,9 +307,32 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        loadProductList();
+        loadProductThread();
 
         return root;
+
+    }
+
+    private void loadProductThread() {
+
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+
+                    loadProductList();
+
+                }
+                catch(Exception e) {
+
+                    e.printStackTrace();
+
+                }
+            }
+        };
+
+        thread.start();
 
     }
 

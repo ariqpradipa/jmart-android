@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("JMART");
 
-        loadProductList();
+        loadProductThread();
 
         productSearch = findViewById(R.id.product_search_view);
         productSearch.setAdapter(adapterProductView);
@@ -127,6 +127,29 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void loadProductThread() {
+
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+
+                    loadProductList();
+
+                }
+                catch(Exception e) {
+
+                    e.printStackTrace();
+
+                }
+            }
+        };
+
+        thread.start();
+
     }
 
     List<HashMap<String, String>> mapList = new ArrayList<>();

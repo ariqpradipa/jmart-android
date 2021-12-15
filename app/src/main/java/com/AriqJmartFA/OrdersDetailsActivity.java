@@ -11,6 +11,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.AriqJmartFA.request.PaymentAcceptRequest;
+import com.AriqJmartFA.request.PaymentRejectRequest;
+import com.AriqJmartFA.request.PaymentSubmitRequest;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 
 public class OrdersDetailsActivity extends AppCompatActivity {
 
@@ -35,10 +43,11 @@ public class OrdersDetailsActivity extends AppCompatActivity {
         Button submitButton = findViewById(R.id.orders_submit_button);
         Button rejectButton = findViewById(R.id.orders_reject_button);
         Button waitBuyerConf = findViewById(R.id.wait_buyer_acc);
-        Button buyerCancell = findViewById(R.id.cancelled_by_buyer);
+        Button buyerCancel = findViewById(R.id.cancelled_by_buyer);
 //        Button productOTW = findViewById(R.id.payment_otw);
 
         paymentBuyDate.setText(selectedOrders.date.toString());
+
 
 
         for(int i = 0; i < productList.size(); i++) {
@@ -53,9 +62,8 @@ public class OrdersDetailsActivity extends AppCompatActivity {
 
 
         paymentProductCount.setText(Integer.toString(selectedOrders.productCount));
-        paymentShipmentAddress.setText(selectedPayment.shipment.address);
+        paymentShipmentAddress.setText(selectedOrders.shipment.address);
         paymentShipmentCost.setText(Integer.toString(selectedOrders.shipment.cost));
-
 
         switch(selectedOrders.shipment.plan) {
             case 1: {
@@ -84,18 +92,20 @@ public class OrdersDetailsActivity extends AppCompatActivity {
         paymentStatusMSG.setText(selectedOrders.latestHistory.message);
         paymentStatusDate.setText(selectedOrders.latestHistory.date);
 
-        if(selectedPayment.latestHistory.status.equals("ON_PROGRESS")) {
+
+
+        if(selectedOrders.latestHistory.status.equals("ON_PROGRESS")) {
 
             submitButton.setVisibility(View.VISIBLE);
             rejectButton.setVisibility(View.VISIBLE);
 
-        } else if(selectedPayment.latestHistory.status.equals("WAITING_CONFIRMATION")) {
+        } else if(selectedOrders.latestHistory.status.equals("WAITING_CONFIRMATION")) {
 
             waitBuyerConf.setVisibility(View.VISIBLE);
 
-        } else if(selectedPayment.latestHistory.status.equals("CANCELLED")) {
+        } else if(selectedOrders.latestHistory.status.equals("CANCELLED")) {
 
-            buyerCancell.setVisibility(View.VISIBLE);
+            buyerCancel.setVisibility(View.VISIBLE);
 
         } else {
 
@@ -103,12 +113,62 @@ public class OrdersDetailsActivity extends AppCompatActivity {
             rejectButton.setVisibility(View.GONE);
 
         }
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Response.Listener<String> listener = response -> {
+
+                    Toast.makeText(OrdersDetailsActivity.this, "Product Sent", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(OrdersDetailsActivity.this, StoreOrdersActivity.class);
+                    startActivity(intent);
+
+                };
+
+                Response.ErrorListener ErrorListener = errorResponse -> {
+
+                    Toast.makeText(OrdersDetailsActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+
+                };
+
+                PaymentSubmitRequest paymentsubmitRequest = new PaymentSubmitRequest(Integer.toString(selectedPayment.id), "lorem ipsum", listener, ErrorListener);
+                RequestQueue requestQueue = Volley.newRequestQueue(OrdersDetailsActivity.this);
+                requestQueue.add(paymentsubmitRequest);
+
+            }
+        });
+
+        rejectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Response.Listener<String> listener = response -> {
+
+                    Toast.makeText(OrdersDetailsActivity.this, "Product Cancelleed", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(OrdersDetailsActivity.this, StoreOrdersActivity.class);
+                    startActivity(intent);
+
+                };
+
+                Response.ErrorListener ErrorListener = errorResponse -> {
+
+                    Toast.makeText(OrdersDetailsActivity.this, "Unable to process", Toast.LENGTH_SHORT).show();
+
+                };
+
+                PaymentRejectRequest paymentrejectRequest = new PaymentRejectRequest(Integer.toString(selectedOrders.id), listener, ErrorListener);
+                RequestQueue requestQueue = Volley.newRequestQueue(OrdersDetailsActivity.this);
+                requestQueue.add(paymentrejectRequest);
+
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
         // super.onBackPressed();
-        Intent intent = new Intent(OrdersDetailsActivity.this, UserPaymentActivity.class);
+        Intent intent = new Intent(OrdersDetailsActivity.this, StoreOrdersActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 

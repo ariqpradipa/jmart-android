@@ -56,7 +56,7 @@ public class UserPaymentActivity extends AppCompatActivity {
         JSON_URL = PARENT_JSON_URL;
         JSON_URL = JSON_URL + getLoggedInAccount().id + "/paymentHistory";
 
-        loadTransactionList();
+        loadOrdersThread();
 
         transactionView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,6 +72,28 @@ public class UserPaymentActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void loadOrdersThread() {
+
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+
+                    loadTransactionList();
+
+                }
+                catch(Exception e) {
+
+                    e.printStackTrace();
+
+                }
+            }
+        };
+
+        thread.start();
     }
 
     String transactionProductName;

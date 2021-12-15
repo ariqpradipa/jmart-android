@@ -56,7 +56,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
         JSON_URL = PARENT_JSON_URL;
         JSON_URL = JSON_URL + getLoggedInAccount().id + "/ordersHistory";
 
-        loadTransactionList();
+        loadTransactionThread();
 
         ordersView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,6 +73,28 @@ public class StoreOrdersActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loadTransactionThread() {
+
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+
+                    loadTransactionList();
+
+                }
+                catch(Exception e) {
+
+                    e.printStackTrace();
+
+                }
+            }
+        };
+
+        thread.start();
     }
 
     String transactionOrdersName;
@@ -134,7 +156,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
 
                                 HashMap<String, String> map = new HashMap<String, String>();
 
-                                map.put("productName", transactionOrdersName);
+                                map.put("ordersName", transactionOrdersName);
                                 map.put("transactionStatus", paymentObject.getJSONArray("history").getJSONObject(paymentObject.getJSONArray("history").length() - 1).getString("status"));
                                 mapList.add(map);
 
@@ -151,7 +173,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
                                     StoreOrdersActivity.this,
                                     mapList,
                                     R.layout.transaction_layout,
-                                    new String[] {"productName", "transactionStatus"},
+                                    new String[] {"ordersName", "transactionStatus"},
                                     new int[] {R.id.productname_transaction, R.id.transactionstatus_transaction});
                             ordersView.setAdapter(adapterOrdersView);
 
